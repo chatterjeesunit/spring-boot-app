@@ -30,7 +30,7 @@ VALUES ('Super', 'Admin 01', 'admin01@tw.com', '$2a$10$4LEwPTJ86OF/oZUn8hl0vOhSU
 
 -- Password is welcome@123#
 INSERT INTO `user_info` (`first_name`, `last_name`, `email_address`, `password`)
-VALUES ('Test', 'User', 'testuser@tw.com', '$2a$10$yPIWEiYj8sGLox.9cPKPZe6GgGRy.T8iV/sR2Br1PyA0UzLaYVOa.');
+VALUES ('Test', 'User', 'user01@tw.com', '$2a$10$yPIWEiYj8sGLox.9cPKPZe6GgGRy.T8iV/sR2Br1PyA0UzLaYVOa.');
 
 
 
@@ -43,7 +43,7 @@ VALUES (2, 'ROLE_USER');
 INSERT INTO `user_roles` (`user_id`, `role_id`)
 select u.id, r.id
 from user_info u, roles r
-where u.email_address = 'testuser@tw.com'
+where u.email_address = 'user01@tw.com'
 and r.role_name = 'ROLE_USER';
 
 INSERT INTO `user_roles` (`user_id`, `role_id`)

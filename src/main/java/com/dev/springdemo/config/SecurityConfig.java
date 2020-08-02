@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
@@ -17,12 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     private final String USER_QUERY =
             "select email_address, password, true as enabled " +
-            "from user_info where email_address = ?";
+            "from userinfo where email_address = ?";
 
 
     private String USER_ROLE_QUERY =
             "select u.email_address, r.role_name " +
-            "from user_info u inner join user_roles ur on u.id = ur.user_id " +
+            "from userinfo u inner join user_roles ur on u.id = ur.user_id " +
             "inner join roles r on r.id = ur.role_id " +
             "where u.email_address = ?";
 
