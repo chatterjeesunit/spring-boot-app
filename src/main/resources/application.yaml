@@ -1,9 +1,20 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
   datasource:
     url: jdbc:mysql://localhost:3306/test
     username: admin
     password: welcome
     driverClassName: com.mysql.jdbc.Driver
+
+  flyway:
+    user: admin
+    password: welcome
+    url: jdbc:mysql://localhost:3306/test
+    baseline-version: 0.0
+    enabled: true
+    locations: classpath:db/migration
+    table: flyway_schema_history
+    baselineOnMigrate: true
+

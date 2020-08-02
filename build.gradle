@@ -23,6 +23,7 @@ dependencies {
 //	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile "org.flywaydb:flyway-core:5.2.4"
 
 	runtime('mysql:mysql-connector-java:5.1.48')
 	compile ('javax.xml.bind:jaxb-api:2.3.0')
