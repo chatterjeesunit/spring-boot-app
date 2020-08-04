@@ -30,7 +30,7 @@ VALUES ('Super', 'Admin 01', 'admin01@tw.com', '$2a$10$4LEwPTJ86OF/oZUn8hl0vOhSU
 
 -- Password is admin02@123#
 INSERT INTO `user_info` (`first_name`, `last_name`, `email_address`, `password`)
-VALUES ('Super', 'Admin 02', 'admin02@tw.com', '$2a$10$nbAEyOjj7ucz9V7cbf.2JOFZoTgvCF6wWvCkVWASbNshgnRuhfTqG');
+VALUES ('Super', 'Admin 02', 'admin02@tw.com', '$2a$10$TgtSzZ9bOt5voyb5bYkdGupQdFMSC9.mhFU1hwziOSIGzcoPN4D9e');
 
 
 -- Password is welcome@123#
