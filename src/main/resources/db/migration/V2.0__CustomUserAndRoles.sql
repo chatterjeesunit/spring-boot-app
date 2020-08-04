@@ -28,6 +28,11 @@ create unique index idx_user_role_id on user_roles (user_id, role_id);
 INSERT INTO `user_info` (`first_name`, `last_name`, `email_address`, `password`)
 VALUES ('Super', 'Admin 01', 'admin01@tw.com', '$2a$10$4LEwPTJ86OF/oZUn8hl0vOhSUhFqX5YwNO./i/bTeTD6cn5lRLj2S');
 
+-- Password is admin02@123#
+INSERT INTO `user_info` (`first_name`, `last_name`, `email_address`, `password`)
+VALUES ('Super', 'Admin 02', 'admin02@tw.com', '$2a$10$nbAEyOjj7ucz9V7cbf.2JOFZoTgvCF6wWvCkVWASbNshgnRuhfTqG');
+
+
 -- Password is welcome@123#
 INSERT INTO `user_info` (`first_name`, `last_name`, `email_address`, `password`)
 VALUES ('Test', 'User', 'user01@tw.com', '$2a$10$yPIWEiYj8sGLox.9cPKPZe6GgGRy.T8iV/sR2Br1PyA0UzLaYVOa.');
@@ -51,5 +56,13 @@ select u.id, r.id
 from user_info u, roles r
 where u.email_address = 'admin01@tw.com'
 and r.role_name = 'ROLE_ADMIN';
+
+INSERT INTO `user_roles` (`user_id`, `role_id`)
+select u.id, r.id
+from user_info u, roles r
+where u.email_address = 'admin02@tw.com'
+and r.role_name = 'ROLE_ADMIN';
+
+
 
 commit;

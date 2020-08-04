@@ -18,12 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     private final String USER_QUERY =
             "select email_address, password, true as enabled " +
-            "from userinfo where email_address = ?";
+            "from user_info where email_address = ?";
 
 
     private String USER_ROLE_QUERY =
             "select u.email_address, r.role_name " +
-            "from userinfo u inner join user_roles ur on u.id = ur.user_id " +
+            "from user_info u inner join user_roles ur on u.id = ur.user_id " +
             "inner join roles r on r.id = ur.role_id " +
             "where u.email_address = ?";
 
