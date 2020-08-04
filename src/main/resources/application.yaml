@@ -1,7 +1,17 @@
 spring:
   jpa:
     hibernate:
+      use-new-id-generator-mappings: false
       ddl-auto: validate
+    properties:
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _AUDIT
+            revision_field_name: REVISION_ID
+            revision_type_field_name: REVISION_TYPE
+  #         store_data_at_delete: true
+
   datasource:
     url: jdbc:mysql://localhost:3306/test
     username: admin
