@@ -3,6 +3,8 @@ package com.dev.springdemo.customer;
 import com.dev.springdemo.customer.model.Customer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,15 +29,22 @@ public class CustomerService {
     }
 
     public Customer create(Customer customer) {
-        log.info("Creating a new customer with emailAddress: {}", customer.getEmailAddress());
-        return customerRepository.save(customer);
+        try {
+            log.info("Creating a new customer with emailAddress: {}", customer.getEmailAddress());
+            return customerRepository.save(customer);
+        }catch (DataIntegrityViolationException e){
+            log.error("Customer already exists with emailAddress: {}", customer.getEmailAddress());
+            throw new RuntimeException("Customer already exists with same emailAddress");
+        }
+
     }
 
     public Customer update(Customer customer) {
         log.info("Updating a customer with id: {}", customer.getId());
         Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
         if(optionalCustomer.isEmpty()) {
-            throw new RuntimeException("Cannot find the customer by id " + customer.getId());
+            log.error("Unable to update customer by id {}",  customer.getId());
+            throw new RuntimeException("Customer does not exists");
         }
         Customer existingCustomer = optionalCustomer.get();
         existingCustomer.setAddresses(customer.getAddresses());
@@ -60,6 +69,11 @@ public class CustomerService {
 
 
     public void deleteCustomer(Long customerId) {
-        customerRepository.deleteById(customerId);
+        try {
+            customerRepository.deleteById(customerId);
+        } catch (EmptyResultDataAccessException e) {
+            log.error("Unable to delete customer by id {}", customerId);
+            throw new RuntimeException("Customer does not exists");
+        }
     }
 }

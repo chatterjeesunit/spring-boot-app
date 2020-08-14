@@ -36,7 +36,7 @@ public class CustomerController {
         try {
             Long customerIdLong = Long.valueOf(customerId);
             Customer customer = customerService.getCustomerById(customerIdLong)
-                    .orElseThrow(()->new RuntimeException("Unable to fetch customer record with id = " + customerId));
+                    .orElseThrow(()->new RuntimeException("Customer does not exists"));
             return ResponseEntity.ok(customer);
         }catch(Exception ex) {
             return handleException(ex);
