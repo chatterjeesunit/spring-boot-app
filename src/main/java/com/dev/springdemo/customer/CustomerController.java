@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.Optional;
 
 /**
  * Created by sunitc on 4/19/18.
@@ -35,6 +37,17 @@ public class CustomerController {
             Long customerIdLong = Long.valueOf(customerId);
             Customer customer = customerService.getCustomerById(customerIdLong)
                     .orElseThrow(()->new RuntimeException("Unable to fetch customer record with id = " + customerId));
+            return ResponseEntity.ok(customer);
+        }catch(Exception ex) {
+            return handleException(ex);
+        }
+    }
+
+    @GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> searchCustomerByEmail(
+                @RequestParam(name = "email") String emailAddress) {
+        try {
+            Optional<Customer> customer = customerService.findByEmail(emailAddress);
             return ResponseEntity.ok(customer);
         }catch(Exception ex) {
             return handleException(ex);
@@ -74,6 +87,17 @@ public class CustomerController {
             customer.setId(Long.valueOf(customerId));
             Customer updatedCustomer = customerService.update(customer);
             return ResponseEntity.ok(updatedCustomer);
+        }catch(Exception ex) {
+            return handleException(ex);
+        }
+    }
+
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable(name = "id") String customerId) {
+        try {
+            customerService.deleteCustomer(Long.valueOf(customerId));
+            return ResponseEntity.noContent().build();
         }catch(Exception ex) {
             return handleException(ex);
         }

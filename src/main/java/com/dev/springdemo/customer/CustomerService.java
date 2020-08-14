@@ -3,7 +3,6 @@ package com.dev.springdemo.customer;
 import com.dev.springdemo.customer.model.Customer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,24 +17,20 @@ import java.util.Optional;
 @Log4j2
 public class CustomerService {
 
-    //Autowiring the repository
     @Autowired
     private CustomerRepository customerRepository;
 
-    //Get customer by Id
-    @Cacheable()
+
     public Optional<Customer> getCustomerById(Long customerId) {
         log.info("Fetching customer by id: {}", customerId);
         return customerRepository.findById(customerId);
     }
 
-    //Create the customer
     public Customer create(Customer customer) {
         log.info("Creating a new customer with emailAddress: {}", customer.getEmailAddress());
         return customerRepository.save(customer);
     }
 
-    //Update the customer
     public Customer update(Customer customer) {
         log.info("Updating a customer with id: {}", customer.getId());
         Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
@@ -49,13 +44,22 @@ public class CustomerService {
         return customerRepository.save(existingCustomer);
     }
 
-    //Find all customers by name
+
     public List<Customer> findByName(String name){
         return customerRepository.findAllByFirstNameContainingOrLastNameContaining(name, name);
+    }
+
+    public Optional<Customer> findByEmail(String email){
+        return customerRepository.findCustomerByEmailAddress(email);
     }
 
     //Paging implementation of findAll
     public Page<Customer> findAll(Pageable pageable) {
         return customerRepository.findAll(pageable);
+    }
+
+
+    public void deleteCustomer(Long customerId) {
+        customerRepository.deleteById(customerId);
     }
 }
