@@ -1,6 +1,5 @@
-package com.dev.springjwtUtil.auth.jwt;
+package com.dev.springdemo.auth.jwt;
 
-import com.dev.springdemo.auth.jwt.JWTUtil;
 import com.dev.springdemo.auth.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -51,7 +50,7 @@ class JWTUtilTest {
 
         assertEquals(3, jwtParts.length, "JWT Should contain 3 parts separated by dot");
 
-        String userName = jwtUtil.parseJWTAndFetchUserName(jwt).getSubject();
+        String userName = jwtUtil.parseJWT(jwt).getSubject();
 
         assertEquals("sunitchatterjee@thoughtworks.com", userName);
     }
@@ -59,7 +58,7 @@ class JWTUtilTest {
 
     @Test
     void shouldMatchClaimsSetInJWT() {
-        Claims claims = jwtUtil.parseJWTAndFetchUserName(VALID_JWT_WITH_LONG_EXPIRY);
+        Claims claims = jwtUtil.parseJWT(VALID_JWT_WITH_LONG_EXPIRY);
 
         assertEquals("Spring Boot App", claims.getIssuer());
         assertEquals("sunitchatterjee@thoughtworks.com", claims.getSubject());
@@ -71,31 +70,31 @@ class JWTUtilTest {
     @Test
     void shouldThrowExceptionIfJWTIsSignedUsingDifferentKey() {
         assertThrows(SignatureException.class,
-                () -> jwtUtil.parseJWTAndFetchUserName(JWT_SIGNED_WITH_DIFFERENT_KEY));
+                () -> jwtUtil.parseJWT(JWT_SIGNED_WITH_DIFFERENT_KEY));
     }
 
     @Test
     void shouldThrowExceptionWhenExpiredJWTTokenIsParsed() {
         assertThrows(ExpiredJwtException.class,
-                () -> jwtUtil.parseJWTAndFetchUserName(EXPIRED_JWT));
+                () -> jwtUtil.parseJWT(EXPIRED_JWT));
     }
 
     @Test
     void shouldThrowExceptionWhenInvalidJWTTokenIsParsed() {
         assertThrows(MalformedJwtException.class,
-                () -> jwtUtil.parseJWTAndFetchUserName("dummy.dummy.dummy"));
+                () -> jwtUtil.parseJWT("dummy.dummy.dummy"));
     }
 
     @Test
     void shouldThrowExceptionWhenNullJWTTokenIsParsed() {
         assertThrows(IllegalArgumentException.class,
-                () -> jwtUtil.parseJWTAndFetchUserName(null));
+                () -> jwtUtil.parseJWT(null));
     }
 
     @Test
     void shouldThrowExceptionWhenAnEmptyJWTTokenIsParsed() {
         assertThrows(IllegalArgumentException.class,
-                () -> jwtUtil.parseJWTAndFetchUserName( ""));
+                () -> jwtUtil.parseJWT( ""));
     }
 
 }
