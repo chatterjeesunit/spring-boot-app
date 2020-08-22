@@ -1,10 +1,10 @@
 package com.dev.springdemo.audit;
 
+import com.dev.springdemo.auth.user.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Optional;
 
