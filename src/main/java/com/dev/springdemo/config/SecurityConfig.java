@@ -1,5 +1,6 @@
 package com.dev.springdemo.config;
 
+import com.dev.springdemo.auth.filter.AuthTokenFilter;
 import com.dev.springdemo.auth.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter
@@ -30,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
+            .addFilterBefore(getJWTAuthTokenFilter(),
+                    UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
             .antMatchers("/actuator/**").permitAll()
             .antMatchers("/api/v1/auth/token").permitAll()
@@ -51,6 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     @Bean
     public AuthenticationManager getAuthenticationManager() throws Exception {
         return authenticationManager();
+    }
+
+    @Bean
+    public AuthTokenFilter getJWTAuthTokenFilter() throws Exception {
+        return new AuthTokenFilter();
     }
 
 }
