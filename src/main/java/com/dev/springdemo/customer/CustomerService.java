@@ -6,6 +6,8 @@ import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import java.util.Optional;
  */
 @Service
 @Log4j2
+@CacheConfig(cacheNames = "customers")
 public class CustomerService {
 
     @Autowired
@@ -29,6 +32,7 @@ public class CustomerService {
     private AuditReader auditReader;
 
 
+    @Cacheable
     public Optional<Customer> getCustomerById(Long customerId) {
         log.info("Fetching customer by id: {}", customerId);
         return customerRepository.findById(customerId);
