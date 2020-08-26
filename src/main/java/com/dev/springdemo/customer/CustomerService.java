@@ -7,6 +7,8 @@ import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -38,6 +40,7 @@ public class CustomerService {
         return customerRepository.findById(customerId);
     }
 
+    @CachePut(key = "#customer.id")
     public Customer create(Customer customer) {
         try {
             log.info("Creating a new customer with emailAddress: {}", customer.getEmailAddress());
@@ -49,6 +52,7 @@ public class CustomerService {
 
     }
 
+    @CachePut(key = "#customer.id")
     public Customer update(Customer customer) {
         log.info("Updating a customer with id: {}", customer.getId());
         Optional<Customer> optionalCustomer = customerRepository.findById(customer.getId());
@@ -78,6 +82,7 @@ public class CustomerService {
     }
 
 
+    @CacheEvict
     public void deleteCustomer(Long customerId) {
         try {
             customerRepository.deleteById(customerId);
