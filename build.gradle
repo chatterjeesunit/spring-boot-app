@@ -32,7 +32,7 @@ dependencies {
 
 	compile('org.hibernate:hibernate-envers')
 
-	compile 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtime 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	// Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
@@ -40,7 +40,7 @@ dependencies {
 	// Uncomment below line if you want to use gson
 	//runtime 'io.jsonwebtoken:jjwt-gson:0.11.2'
 
-	compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.8.5'
+	implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.8.5'
 
 	testCompile('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
