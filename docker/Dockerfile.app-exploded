@@ -1,0 +1,10 @@
+FROM adoptopenjdk/openjdk11:jre-11.0.8_10-alpine
+LABEL maintainer="Sunit Chatterjee (developerpod.com)"
+RUN adduser --no-create-home --disabled-password springuser
+USER springuser:springuser
+
+ARG DEPENDENCY=build/dependency
+COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY ${DEPENDENCY}/META-INF /app/META-INF
+COPY ${DEPENDENCY}/BOOT-INF/classes /app
+ENTRYPOINT ["java", "-cp", "app:app/lib/*", "com.dev.springdemo.SpringDemoApplication"]
