@@ -1,8 +1,6 @@
 version: '3.8'
 
 networks:
-  internal-nw:
-    internal: true
   outside-nw:
 
 services:
@@ -20,7 +18,6 @@ services:
       - ~/data/mysql8:/var/lib/mysql
     networks:
       - outside-nw
-      - internal-nw
 #    healthcheck:
 #      test: mysql --user $$MYSQL_USER --password=$$MYSQL_PASSWORD --database $$MYSQL_DATABASE --execute "select 1;"
 #      interval: 30s
@@ -34,6 +31,7 @@ services:
       dockerfile: ./docker/Dockerfile.app-exploded
     ports:
       - 8080
+      - 5701
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://database:3306/testdb'
       SPRING_DATASOURCE_USERNAME: testdbuser
@@ -42,7 +40,7 @@ services:
       SPRING_FLYWAY_USER: testdbuser
       SPRING_FLYWAY_PASSWORD: dummyPass!
     networks:
-      - internal-nw
+      - outside-nw
     depends_on:
       - database
     restart: unless-stopped
@@ -70,7 +68,6 @@ services:
       # traefik does its magic by reading information about running containers from the docker socket
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
-      - internal-nw
       - outside-nw
     depends_on:
       - application

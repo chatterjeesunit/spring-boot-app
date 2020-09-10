@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 /**
  * Created by sunitc on 4/19/18.
@@ -21,7 +22,7 @@ import javax.persistence.ManyToOne;
 @RequiredArgsConstructor
 @Entity
 @Audited
-public class Address {
+public class Address implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

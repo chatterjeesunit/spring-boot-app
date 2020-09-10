@@ -45,7 +45,7 @@ dependencies {
 	// Uncomment below line if you want to use gson
 	//runtime 'io.jsonwebtoken:jjwt-gson:0.11.2'
 
-	implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.8.5'
+	implementation group: 'com.hazelcast', name: 'hazelcast-all', version: '4.0.2'
 
 	testCompile('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

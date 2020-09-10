@@ -6,5 +6,6 @@ Sample Spring Boot project
  - with Authentication using JWT - [Git Tag V5.0](https://github.com/chatterjeesunit/spring-boot-app/tree/v5.0)
  - with Caffeine Caching - [Git Tag V6.0](https://github.com/chatterjeesunit/spring-boot-app/tree/v6.0)
  - with Docker Compose - [Git Tag V7.0](https://github.com/chatterjeesunit/spring-boot-app/tree/v7.0)
+ - with Distributed Cache using Hazelcast - [Git Tag V8.0](https://github.com/chatterjeesunit/spring-boot-app/tree/v8.0)
  
 For more detailed step by step guide on how to do this, please refer to the blogs on - http://sunitc.dev/tag/spring-boot/
