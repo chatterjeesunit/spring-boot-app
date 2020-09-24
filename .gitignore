@@ -5,7 +5,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-
+.env
 # Icon must end with two \r
 Icon
 
@@ -156,7 +156,6 @@ fabric.properties
 *.iml
 *.ipr
 *.iws
-*.jar
 *.sw?
 *~
 .#*
