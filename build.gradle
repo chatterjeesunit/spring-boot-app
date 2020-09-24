@@ -15,10 +15,11 @@ repositories {
 }
 
 task buildJar(type: Exec) {
-	dependsOn(build)
 	executable "sh"
-	args "-c", "mkdir -p build/dependency && cd build/dependency && jar -xvf ../libs/spring-boot-app*.jar"
+	args "-c", "mkdir -p build/dependency && cd build/dependency && jar -xf ../libs/*.jar"
 }
+
+check.dependsOn buildJar
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
