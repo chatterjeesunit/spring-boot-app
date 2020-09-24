@@ -1,4 +1,4 @@
-#Sample Spring Boot project 
+# Sample Spring Boot project 
 
 ## Releases
  * with few basic CRUD REST APIs - [Git Tag V1.1](https://github.com/chatterjeesunit/spring-boot-app/tree/v1.1)
@@ -14,17 +14,15 @@ For more detailed step by step guide on how to build this app, please refer to t
 
 
 ## How to run it
- * Pre-requisite (for first time run only)<br>
-  Create a folder for mysql volume mount<br>
+ * Pre-requisite (for first time run only) <br>
+  Create a folder for mysql volume mount <br>
   `mkdir -p ~/data/mysql8`
 
- * Build
- <br>
-`./gradlew clean build`
+ * Build<br>
+   `./gradlew clean build`
 
- * Run via Docker Compose
- <br>
-`docker-compose up -d --build --scale application=2`
+ * Run via Docker Compose <br>
+   `docker-compose up -d --build --scale application=2`
 
  
 ## Creating Dummy Data
