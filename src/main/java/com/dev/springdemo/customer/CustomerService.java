@@ -2,6 +2,9 @@ package com.dev.springdemo.customer;
 
 import com.dev.springdemo.customer.model.Customer;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.query.AuditEntity;
+import org.hibernate.envers.query.AuditQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,6 +24,9 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private AuditReader auditReader;
 
 
     public Optional<Customer> getCustomerById(Long customerId) {
@@ -75,5 +81,20 @@ public class CustomerService {
             log.error("Unable to delete customer by id {}", customerId);
             throw new RuntimeException("Customer does not exists");
         }
+    }
+
+    public List<?> getRevisions(Long id, boolean fetchChanges) {
+        AuditQuery auditQuery = null;
+
+        if(fetchChanges) {
+            auditQuery = auditReader.createQuery()
+                    .forRevisionsOfEntityWithChanges(Customer.class, true);
+        }
+        else {
+            auditQuery = auditReader.createQuery()
+                    .forRevisionsOfEntity(Customer.class, true);
+        }
+        auditQuery.add(AuditEntity.id().eq(id));
+        return auditQuery.getResultList();
     }
 }

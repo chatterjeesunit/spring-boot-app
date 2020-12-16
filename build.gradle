@@ -30,7 +30,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
-	compile('org.hibernate:hibernate-envers:5.4.10.Final')
+	compile('org.hibernate:hibernate-envers:5.4.23.Final')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

@@ -36,7 +36,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Audited
+@Audited(withModifiedFlag = true)
 public class Customer {
 
     @Id

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -107,5 +108,17 @@ public class CustomerController {
         ex.printStackTrace();
         ErrorMessage error = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         return ResponseEntity.badRequest().body(error);
+    }
+
+    @GetMapping(path = "/{id}/revisions", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getRevisions(@PathVariable(name = "id") String customerId,
+                                          @RequestParam(value = "fetchChanges", required = false) boolean fetchChanges) {
+        try {
+            List results = customerService.getRevisions(Long.valueOf(customerId), fetchChanges);
+            return ResponseEntity.ok(results);
+
+        }catch(Exception ex) {
+            return handleException(ex);
+        }
     }
 }

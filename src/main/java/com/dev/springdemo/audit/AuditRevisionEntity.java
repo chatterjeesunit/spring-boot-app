@@ -1,5 +1,6 @@
 package com.dev.springdemo.audit;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.DefaultRevisionEntity;
@@ -16,6 +17,7 @@ import javax.persistence.*;
 })
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class AuditRevisionEntity extends DefaultRevisionEntity {
 
     @Column(name = "user")
