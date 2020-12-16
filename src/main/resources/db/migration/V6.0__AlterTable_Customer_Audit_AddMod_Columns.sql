@@ -1,4 +1,4 @@
-ALTER TABLE `test`.`customer_audit` 
+ALTER TABLE `customer_audit`
 ADD COLUMN `created_by_mod` TINYINT(1) NULL,
 ADD COLUMN `created_on_mod` TINYINT(1) NULL ,
 ADD COLUMN `email_address_mod` boolean NULL,
