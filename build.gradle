@@ -1,13 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.3.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 	id 'idea'
 	id 'eclipse'
 }
 
 group = 'com.dev'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
@@ -16,26 +16,27 @@ repositories {
 
 
 dependencies {
-//	compile('org.springframework.boot:spring-boot-starter-aop')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-//	compile('org.springframework.boot:spring-boot-starter-data-redis')
-//	compile('org.springframework.boot:spring-boot-starter-cache')
-	compile('org.springframework.boot:spring-boot-starter-security')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile("org.springframework.boot:spring-boot-starter-actuator")
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	compile "org.flywaydb:flyway-core:5.2.4"
-	runtime('mysql:mysql-connector-java:5.1.48')
-	compile ('javax.xml.bind:jaxb-api:2.3.0')
-	compileOnly 'org.projectlombok:lombok:1.18.10'
-	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+	implementation "org.flywaydb:flyway-core:6.5.5"
+	runtime 'mysql:mysql-connector-java:8.0.20'
+	implementation 'javax.xml.bind:jaxb-api:2.3.0'
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
-	compile('org.hibernate:hibernate-envers:5.4.23.Final')
+
+	compile('org.hibernate:hibernate-envers')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testCompile('org.springframework.security:spring-security-test')
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 }
 
 test {
