@@ -40,7 +40,7 @@ user01@tw.com|welcome@123#|USER
 
 ##### 1. API to get JWT Auth Token
 ```
-curl --location --request POST 'localhost/api/v1/auth/token' \
+curl --location --request POST 'dev-sandbox/api/v1/auth/token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "userName": "admin01@tw.com",
@@ -57,8 +57,16 @@ In above code, replace the text `<<REPLACE JWT TOKEN HERE>>` with JWT token from
 
 
 ## Troubleshooting
- * If after running Docker Compose, you are getting `404` on the APIs, ONLY restart the load-balancer.
- Sometimes this happens when loadbalancer starts before application server starts
+ * If after running Docker Compose, you are getting `404` on the APIs, 
+   * Restart ONLY the load-balancer container - sometimes this happens when loadbalancer starts before application server starts
+   * Create an alias for localhost (127.0.0.1) 
+     * The reason for doing this is because we have configured the traefik loadbalancer using hostname `dev-sandbox`
+     * So if you hit any api with host as `localhost`, it wont work with current configuration of traefik loadbalancer 
+     * Just open the following file `/etc/hosts`, and add following line at the end
+       <br>`127.0.0.1 dev-sandbox`
+     * After this configuration, restart the application using 
+       <br>`docker-compose restart`
+     
  
  
  
